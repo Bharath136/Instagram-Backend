@@ -39,7 +39,7 @@ const initializeDBAndServer = async () => {
 initializeDBAndServer();
 
 //Create User API
-app.post("/sign-up", async (request, response) => {
+app.post("/register", async (request, response) => {
     const { email, fullName, username, password } = request.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -123,7 +123,7 @@ app.get("/users", async (request,response) => {
     const userDeleteQuery = `
         SELECT * FROM users ;
     `;
-    const dbUsers = await db.get(userDeleteQuery);
+    const dbUsers = await db.all(userDeleteQuery);
 
     if (dbUsers !== undefined) {
         // response.send("User Detected Successfully!")
