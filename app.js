@@ -5,6 +5,7 @@ const sqlite3 = require("sqlite3");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const { request } = require("http");
+const { response } = require("express");
 // const { response } = require("express");
 
 const app = express();
@@ -111,6 +112,22 @@ app.delete("/delete", async (request, response) => {
 
     if (dbUser !== undefined) {
         response.send("User Deleted Successfully!")
+    } else {
+        response.status(400);
+        response.send("No user");
+    }
+})
+
+app.get("/users", async () => {
+    // const { username } = request.body
+    const userDeleteQuery = `
+        SELECT * FROM users ;
+    `;
+    const dbUsers = await db.get(userDeleteQuery);
+
+    if (dbUsers !== undefined) {
+        response.send("User Deleted Successfully!")
+        response.send(dbUsers)
     } else {
         response.status(400);
         response.send("No user");
