@@ -118,7 +118,7 @@ app.delete("/delete", async (request, response) => {
     }
 })
 
-app.get("/users", async () => {
+app.get("/users", async (request,response) => {
     // const { username } = request.body
     const userDeleteQuery = `
         SELECT * FROM users ;
@@ -126,7 +126,7 @@ app.get("/users", async () => {
     const dbUsers = await db.get(userDeleteQuery);
 
     if (dbUsers !== undefined) {
-        response.send("User Deleted Successfully!")
+        // response.send("User Detected Successfully!")
         response.send(dbUsers)
     } else {
         response.status(400);
